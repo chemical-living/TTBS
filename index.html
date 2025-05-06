@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Travel Booking</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login/Signup Screen -->
+        <div id="auth-screen" class="screen active">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <img src="images/train-icon.png" alt="Train Icon" class="logo">
+                    <h1>India Travel Booking</h1>
+                    <p>Book your train and bus tickets across India</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+                
+                <form id="login-form" class="auth-form active">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Login</button>
+                </form>
+                
+                <form id="signup-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <button type="submit" class="btn primary-btn">Sign Up</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard" class="screen">
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <h2>Welcome, <span id="username-display"></span></h2>
+                    <button id="logout-btn" class="btn secondary-btn">Logout</button>
+                </div>
+            </header>
+            
+            <div class="dashboard-content">
+                <nav class="sidebar">
+                    <ul>
+                        <li class="active" data-section="book-tickets">
+                            <i class="fas fa-ticket-alt"></i> Book Tickets
+                        </li>
+                        <li data-section="my-bookings">
+                            <i class="fas fa-list"></i> My Bookings
+                        </li>
+                        <li data-section="cancel-booking">
+                            <i class="fas fa-times-circle"></i> Cancel Booking
+                        </li>
+                    </ul>
+                </nav>
+                
+                <main class="main-content">
+                    <!-- Book Tickets Section -->
+                    <section id="book-tickets" class="content-section active">
+                        <h3><i class="fas fa-ticket-alt"></i> Book Travel Tickets</h3>
+                        <form id="booking-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Transport Type</label>
+                                    <div class="transport-options">
+                                        <div class="transport-option">
+                                            <input type="radio" id="train-option" name="transport-type" value="train" checked>
+                                            <label for="train-option">
+                                                <img src="images/train-icon.png" alt="Train">
+                                                <span>Train</span>
+                                            </label>
+                                        </div>
+                                        <div class="transport-option">
+                                            <input type="radio" id="bus-option" name="transport-type" value="bus">
+                                            <label for="bus-option">
+                                                <img src="images/bus-icon.png" alt="Bus">
+                                                <span>Bus</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="from-city">From</label>
+                                    <select id="from-city" required>
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="to-city">To</label>
+                                    <select id="to-city" required>
+                                        <option value="">Select City</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="journey-date">Date</label>
+                                    <input type="date" id="journey-date" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ticket-class">Class</label>
+                                    <select id="ticket-class" required>
+                                        <option value="">Select Class</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="passengers">Number of Passengers</label>
+                                    <input type="number" id="passengers" min="1" max="10" value="1" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn primary-btn">Check Availability</button>
+                        </form>
+                    </section>
+                    
+                    <!-- My Bookings Section -->
+                    <section id="my-bookings" class="content-section">
+                        <h3><i class="fas fa-list"></i> My Bookings</h3>
+                        <div id="bookings-list">
+                            <div class="empty-state">
+                                <i class="fas fa-ticket-alt"></i>
+                                <p>No bookings found</p>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- Cancel Booking Section -->
+                    <section id="cancel-booking" class="content-section">
+                        <h3><i class="fas fa-times-circle"></i> Cancel Booking</h3>
+                        <div class="cancel-container">
+                            <select id="booking-to-cancel">
+                                <option value="">Select Booking to Cancel</option>
+                            </select>
+                            <button id="confirm-cancel" class="btn danger-btn">Cancel Booking</button>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </div>
+        
+        <!-- Availability Modal -->
+        <div id="availability-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3><i class="fas fa-check-circle"></i> Available Tickets</h3>
+                <div id="availability-details" class="booking-summary">
+                    <!-- Filled by JavaScript -->
+                </div>
+                <div class="modal-actions">
+                    <button id="proceed-to-payment" class="btn primary-btn">Proceed to Payment</button>
+                    <button class="btn secondary-btn close-modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Modal -->
+        <div id="payment-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h3><i class="fas fa-credit-card"></i> Payment Details</h3>
+                
+                <div class="payment-summary">
+                    <h4>Booking Summary</h4>
+                    <div id="payment-summary-details" class="booking-summary">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+                
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
+                                <label for="credit-card">
+                                    <i class="fas fa-credit-card"></i> Credit Card
+                                </label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="debit-card" name="payment-method" value="debit-card">
+                                <label for="debit-card">
+                                    <i class="fas fa-credit-card"></i> Debit Card
+                                </label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="upi" name="payment-method" value="upi">
+                                <label for="upi">
+                                    <i class="fas fa-mobile-alt"></i> UPI
+                                </label>
+                            </div>
+                            <div class="payment-method">
+                                <input type="radio" id="net-banking" name="payment-method" value="net-banking">
+                                <label for="net-banking">
+                                    <i class="fas fa-university"></i> Net Banking
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="credit-card-form" class="payment-details-form">
+                        <div class="form-group">
+                            <label for="card-number">Card Number</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-name">Name on Card</label>
+                            <input type="text" id="card-name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-expiry">Expiry Date</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvv">CVV</label>
+                                <input type="password" id="card-cvv" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="upi-form" class="payment-details-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="upi-id">UPI ID</label>
+                            <input type="text" id="upi-id" placeholder="yourname@upi" required>
+                        </div>
+                    </div>
+                    
+                    <div id="net-banking-form" class="payment-details-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="bank-name">Select Bank</label>
+                            <select id="bank-name" required>
+                                <option value="">Select Bank</option>
+                                <option value="sbi">State Bank of India</option>
+                                <option value="hdfc">HDFC Bank</option>
+                                <option value="icici">ICICI Bank</option>
+                                <option value="axis">Axis Bank</option>
+                                <option value="pnb">Punjab National Bank</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn primary-btn">Pay Now</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Confirmation Modal -->
+        <div id="confirmation-modal" class="modal">
+            <div class="modal-content">
+                <div class="confirmation-content">
+                    <div class="confirmation-icon success">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Booking Confirmed!</h3>
+                    <div id="confirmation-details" class="booking-summary">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                    <div class="confirmation-actions">
+                        <button id="view-booking" class="btn primary-btn">View Booking</button>
+                        <button class="btn secondary-btn close-modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
